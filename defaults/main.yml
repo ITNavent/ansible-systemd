@@ -1,0 +1,33 @@
+---
+
+#| Set to `False` to disable the role
+
+systemd_role_enabled: True
+
+#|
+#| Settings
+#|
+
+systemd_default_dir: "/etc/default"
+systemd_unit_dir: "/etc/systemd/system"
+
+#| Setup /etc/default (per run, host, group)
+systemd_environment_vars: []
+systemd_host_environment_vars: []
+systemd_group_environment_vars: []
+
+systemd__environment_vars: '{{ systemd_environment_vars + systemd_host_environment_vars + systemd_group_environment_vars }}'
+
+#| Setup /etc/systemd/system/your-service.system (per run, host, group)
+systemd_services: []
+systemd_host_services: []
+systemd_group_services: []
+
+systemd__services: '{{ systemd_services + systemd_host_services + systemd_group_services }}'
+
+#| Setup /etc/systemd/system/your-service.d/override.conf (per run, host, group)
+systemd_service_overrides: []
+systemd_host_service_overrides: []
+systemd_group_service_overrides: []
+
+systemd__service_overrides: '{{ systemd_service_overrides + systemd_host_service_overrides + systemd_group_service_overrides }}'

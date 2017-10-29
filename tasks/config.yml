@@ -1,0 +1,52 @@
+---
+
+#|  Add systemd configuration files
+
+- name: config - Ensure systemd directories exist
+  file:
+    state: directory
+    path: "{{ item }}"
+    recurse: yes
+  with_items:
+    - "{{ systemd_default_dir }}"
+    - "{{ systemd_unit_dir }}"
+
+- name: config - Ensure override directories exist
+  file:
+    state: directory
+    path: "{{ systemd_unit_dir }}/{{ item.key }}.d"
+    recurse: yes
+  with_items:
+    - "{{ systemd_service_overrides }}"
+  when: item.key not in systemd_remove_service_overrides
+
+- name: config - Add default environmentvars
+  template:
+    src: default.j2
+    dest: "{{ systemd_default_dir }}/{{ item.key }}"
+  with_dict: "{{ systemd_environment_vars }}"
+  when: item.key not in systemd_remove_env
+  register: env_file
+  notify: reload systemd
+
+- name: config - Add systemd unit files
+  template:
+    src: service.j2
+    dest: "{{ systemd_unit_dir }}/{{ item.key }}.service"
+  with_dict: "{{ systemd_services }}"
+  when: item.key not in systemd_remove_services
+  register: unit_file
+  notify: reload systemd
+
+- name: config - Add systemd override files
+  template:
+    src: override.conf.j2
+    dest: "{{ systemd_unit_dir }}/{{ systemd_service_name }}.d/override.conf"
+  with_dict: "{{ systemd_service_overrides }}"
+  when: item.key not in systemd_remove_service_overrides
+  register: override_file
+  notify: reload systemd
+
+- name: config - Reload systemctl daemon configuration
+  shell: systemctl daemon-reload
+  when: env_file.changed or unit_file.changed or override_file.changed

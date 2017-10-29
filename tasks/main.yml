@@ -1,0 +1,13 @@
+---
+
+#|  Configure Systemd Services
+
+- name: main - Setup configuration files
+  include: config.yml
+  when: systemd_role_enabled | bool
+  tags: [ 'systemd', 'systemd-config' ]
+
+- name: main - Remove configuration files
+  include: remove.yml
+  when: systemd_role_enabled | bool
+  tags: [ 'systemd', 'systemd-remove' ]

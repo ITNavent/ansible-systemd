@@ -1,0 +1,6 @@
+---
+
+- name: handler - reload systemd
+  service:
+    name: "{{ systemd_service_name }}"
+    state: restarted

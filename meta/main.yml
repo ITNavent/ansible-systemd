@@ -1,0 +1,20 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: "Chad Sheets"
+  description: "Manage systemd unit files"
+  company: "LinConf"
+  license: "MIT"
+  min_ansible_version: 2.2
+  platforms:
+    - name: Debian
+      versions:
+      - all
+    - name: Ubuntu
+      versions:
+      - all
+  galaxy_tags:
+    - systemd
+    - system
+    - unit

@@ -1,0 +1,31 @@
+---
+
+#|  Remove systemd configuration files
+
+
+- name: remove - Remove default configuration for services
+  file:
+    path: "{{ systemd_default_dir }}/{{ item.key }}"
+  with_dict: "{{ systemd_remove_env }}"
+  register: remove_env_file
+  notify: reload systemd
+
+- name: remove - Remove systemd unit files
+  file:
+    path: "{{ systemd_unit_dir }}/{{ item.key }}.service"
+  with_dict: "{{ systemd_remove_services }}"
+  register: remove_unit_file
+  notify: reload systemd
+
+- name: remove - Remove systemd override files
+  file:
+    path: "{{ systemd_unit_dir }}/{{ systemd_service_name }}.d/override.conf"
+  with_dict: "{{ systemd_remove_service_overrides }}"
+  register: remove_override_file
+  notify: reload systemd
+
+- name: reload systemctl manager configuration
+  shell: systemctl daemon-reload
+  when: remove_env_file.changed or
+    remove_unit_file.changed or
+    remove_override_file.changed

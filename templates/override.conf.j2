@@ -1,0 +1,10 @@
+#{{ ansible_managed_custom | default( ansible_managed ) }}
+{% for i in item.value %}
+{% if i is string  %}
+{{ i }}
+{% elif i is mapping %}
+{% for k,v in i.iteritems() %}
+{{ k }}={{ v }}
+{% endfor %}
+{% endif %}
+{% endfor %}

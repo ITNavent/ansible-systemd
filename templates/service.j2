@@ -1,0 +1,132 @@
+#{{ ansible_managed_custom | default( ansible_managed ) }}
+[Unit]
+Description={{ systemd_Unit_Description }}
+
+{% if systemd_Unit_Documentation is defined %}
+Documentation={{ systemd_Unit_Documentation }}
+{% endif -%}
+
+{% if systemd_Unit_Requires is defined %}
+{% if systemd_Unit_Requires is string %}
+Requires={{ systemd_Unit_Requires }}
+{% else %}
+Requires={{ systemd_Unit_Requires | join(",") }}
+{% endif %}
+{% endif -%}
+
+{% if systemd_Unit_Wants is defined %}
+{% if systemd_Unit_Wants is string %}
+Wants={{ systemd_Unit_Wants }}
+{% else %}
+Wants={{ systemd_Unit_Wants | join(",") }}
+{% endif %}
+{% endif -%}
+
+{% if systemd_Unit_ConditionPathExists is defined %}
+{% if systemd_Unit_ConditionPathExists is string %}
+ConditionPathExists={{ systemd_Unit_ConditionPathExists }}
+{% endif -%}
+{% endif -%}
+
+{% if systemd_Unit_Before is defined %}
+{% if systemd_Unit_Before is string %}
+Before={{ systemd_Unit_Before }}
+{% else %}
+Before={{ systemd_Unit_Before | join(",") }}
+{% endif %}
+{% endif -%}
+
+{% if systemd_Unit_After is defined %}
+{% if systemd_Unit_After is string %}
+After={{ systemd_Unit_After }}
+{% else %}
+After={{ systemd_Unit_After | join(",") }}
+{% endif %}
+{% endif -%}
+
+[Service]
+ExecStart={{ systemd_Service_ExecStart }}
+EnvironmentFile=-{{ systemd_default_dir }}/{{ systemd_name }}
+Type={{ systemd_Service_Type }}
+
+{% if systemd_Service_User is defined %}
+User={{ systemd_Service_User }}
+{% endif -%}
+{% if systemd_Service_Group is defined %}
+Group={{ systemd_Service_Group }}
+{% endif -%}
+{% if systemd_Service_WorkingDirectory is defined %}
+WorkingDirectory={{ systemd_Service_WorkingDirectory }}
+{% endif -%}
+
+{% if systemd_ExecReload is defined %}
+ExecReload={{ systemd_ExecReload }}
+{% endif -%}
+
+{% if systemd_Service_ExecStop is defined %}
+ExecStop={{ systemd_Service_ExecStop }}
+{% endif -%}
+{% if systemd_Service_KillMode is defined %}
+KillMode={{ systemd_Service_KillMode }}
+{% endif -%}
+
+{% if systemd_Service_ExecStartPre is defined %}
+{% if systemd_Service_ExecStartPre is string %}
+ExecStartPre={{ systemd_Service_ExecStartPre }}
+{% elif systemd_Service_ExecStartPre is iterable %}
+{% for i in systemd_Service_ExecStartPre %}
+ExecStartPre={{ i }}
+{% endfor %}
+{% endif %}
+{% endif -%}
+
+{% if systemd_Service_ExecStartPost is defined -%}
+{% if systemd_Service_ExecStartPost is string -%}
+ExecStartPost={{ systemd_Service_ExecStartPost }}
+{% elif systemd_Service_ExecStartPost is iterable -%}
+{% for i in systemd_Service_ExecStartPost -%}
+ExecStartPost={{ i }}
+{% endfor %}
+{% endif %}
+{% endif -%}
+
+{% if systemd_Service_ExecStopPost is defined %}
+ExecStopPost={{ systemd_Service_ExecStopPost }}
+{% endif -%}
+
+{% if systemd_Service_PIDFile is defined %}
+PIDFile={{ systemd_Service_PIDFile }}
+{% endif %}
+{% if systemd_Service_BusName is defined %}
+BusName={{ systemd_Service_BusName }}
+{% endif %}
+{% if systemd_Service_Restart is defined %}
+Restart={{ systemd_Service_Restart }}
+{% endif %}
+{% if systemd_Service_RestartSec is defined %}
+RestartSec={{ systemd_Service_RestartSec }}
+{% endif %}
+{% if systemd_Service_PrivateTmp is defined %}
+PrivateTmp={{ systemd_Service_PrivateTmp }}
+{% endif -%}
+
+{% if systemd_Service_LimitNOFILE is defined %}
+LimitNOFILE={{ systemd_Service_LimitNOFILE }}
+{% endif -%}
+
+[Install]
+{% if systemd_Install_WantedBy is defined %}
+WantedBy={{ systemd_Install_WantedBy }}
+{% endif -%}
+
+{% if systemd_Install_RequiredBy is defined %}
+RequiredBy={{ systemd_Install_RequiredBy }}
+{% endif -%}
+
+{% if systemd_Install_Also is defined %}
+Also={{ systemd_Install_Also }}
+{% endif -%}
+
+{% if systemd_Install_Alias is defined %}
+Alias={{ systemd_Install_Alias }}
+{% endif %}
