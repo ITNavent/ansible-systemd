@@ -31,3 +31,8 @@ systemd_host_service_overrides: []
 systemd_group_service_overrides: []
 
 systemd__service_overrides: '{{ systemd_service_overrides + systemd_host_service_overrides + systemd_group_service_overrides }}'
+
+#| Lists of entries to be removed
+systemd_remove_environment_vars: []
+systemd_remove_services: []
+systemd_remove_service_overrides: []

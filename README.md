@@ -33,19 +33,27 @@ Role Variables
 |`systemd_services` * |MapList|[]|service name
 |`systemd_overrides` * |MapList|[]|service name
 
+Service Variables
+-----------------
+
+
+|name                |type    |default|description
+|--------------------|--------|-------|-------------
+|`Service_Name` *|String||name of the service (../service/`Service_Name.service`)
+
 
 ### [Unit]
 
 
 |name                |type    |default|description
 |--------------------|--------|-------|-------------
-|`systemd_Unit_Description`|String||[Unit]Description
-|`systemd_Unit_Documentation`|String||[Unit]Documentation
-|`systemd_Unit_Requires`|String,List||[Unit]Requires
-|`systemd_Unit_Wants`|String,List||[Unit]Wants
-|`systemd_Unit_ConditionPathExists`|String||[Unit]ConditionPathExists
-|`systemd_Unit_After`|String,List||[Unit]After
-|`systemd_Unit_Before`|String,List||[Unit]Before
+|`Unit_Description`|String||[Unit]Description
+|`Unit_Documentation`|String||[Unit]Documentation
+|`Unit_Requires`|String,List||[Unit]Requires
+|`Unit_Wants`|String,List||[Unit]Wants
+|`Unit_ConditionPathExists`|String||[Unit]ConditionPathExists
+|`Unit_After`|String,List||[Unit]After
+|`Unit_Before`|String,List||[Unit]Before
 
 
 ### [Service]
@@ -53,23 +61,23 @@ Role Variables
 
 |name                |type    |default|description
 |--------------------|--------|-------|-------------
-|`systemd_Service_Type`|String|"simple"|[Service]Type
-|`systemd_Service_ExecStartPre`|String,List||[Service]ExecStartPre
-|`systemd_Service_ExecStart` * |String||[Service]ExecStart
-|`systemd_Service_ExecStartPost`|String,List||[Service]ExecStartPost
-|`systemd_Service_Restart`|String|"on-failure"| [Service]Restart "no" or "always" or "on-success" or "on-failure"
-|`systemd_Service_RestartSec`|Integer|| [Service]RestartSec
-|`systemd_Service_ExecReload`|String|| [Service]ExecReload
-|`systemd_Service_ExecStop`|String|| [Service]ExecStop
-|`systemd_Service_KillMode`|String|| [Service]KillMode
-|`systemd_Service_ExecStopPost`|String,List|| [Service]ExecStopPost
-|`systemd_Service_PIDFile`|String|| [Service]PIDFile
-|`systemd_Service_BusName`|String|| [Service]BusName
-|`systemd_Service_PrivateTmp`|String|| [Service]PrivateTmp
-|`systemd_Service_LimitNOFILE`|String|| [Service]LimitNOFILE
-|`systemd_Service_User`|String|| [Service]User
-|`systemd_Service_Group`|String|| [Service]Group
-|`systemd_Service_WorkingDirectory`|String|| [Service]WorkingDirectory
+|`Service_Type`|String|"simple"|[Service]Type
+|`Service_ExecStartPre`|String,List||[Service]ExecStartPre
+|`Service_ExecStart` * |String||[Service]ExecStart
+|`Service_ExecStartPost`|String,List||[Service]ExecStartPost
+|`Service_Restart`|String|"no"| [Service]Restart "no" or "always" or "on-success" or "on-failure"
+|`Service_RestartSec`|Integer|| [Service]RestartSec
+|`Service_ExecReload`|String|| [Service]ExecReload
+|`Service_ExecStop`|String|| [Service]ExecStop
+|`Service_KillMode`|String|| [Service]KillMode
+|`Service_ExecStopPost`|String,List|| [Service]ExecStopPost
+|`Service_PIDFile`|String|| [Service]PIDFile
+|`Service_BusName`|String|| [Service]BusName
+|`Service_PrivateTmp`|String|| [Service]PrivateTmp
+|`Service_LimitNOFILE`|String|| [Service]LimitNOFILE
+|`Service_User`|String|| [Service]User
+|`Service_Group`|String|| [Service]Group
+|`Service_WorkingDirectory`|String|| [Service]WorkingDirectory
 
 
 
@@ -77,10 +85,10 @@ Role Variables
 
 |name                |type    |default|description
 |--------------------|--------|-------|-------------
-|`systemd_Install_WantedBy`|String|[Install]WantedBy "multi-user.target"|[Install]WantedBy
-|`systemd_Install_RequiredBy`|String||[Install]RequiredBy
-|`systemd_Install_Also`|String||[Install]Also
-|`systemd_Install_Alias`|String||[Install]Alias
+|`Install_WantedBy`|String|"multi-user.target"|[Install]WantedBy
+|`Install_RequiredBy`|String||[Install]RequiredBy
+|`Install_Also`|String||[Install]Also
+|`Install_Alias`|String||[Install]Alias
 
 
 > * Required

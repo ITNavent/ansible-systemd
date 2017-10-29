@@ -1,5 +1,5 @@
 #{{ ansible_managed_custom | default( ansible_managed ) }}
-{% for i in item.value %}
+{% for i in item %}
 {% if i is string  %}
 {{ i }}
 {% elif i is mapping %}
