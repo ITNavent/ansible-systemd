@@ -24,7 +24,8 @@
   template:
     src: default.j2
     dest: "{{ systemd_default_dir }}/{{ item.Service_Name }}"
-  with_items: "{{ systemd_environment_vars }}"
+  with_items:
+    - "{{ systemd_environment_vars }}"  
   when: item not in systemd_remove_environment_vars
   register: env_file
 
@@ -36,7 +37,8 @@
   template:
     src: service.j2
     dest: "{{ systemd_unit_dir }}/{{ item.Service_Name }}.service"
-  with_items: "{{ systemd_services }}"
+  with_items:
+    - "{{ systemd_services }}"    
   when: item not in systemd_remove_services
   register: unit_file
 
@@ -44,7 +46,8 @@
   template:
     src: override.conf.j2
     dest: "{{ systemd_unit_dir }}/{{ item.Service_Name }}.d/override.conf"
-  with_items: "{{ systemd_service_overrides }}"
+  with_items:
+    - "{{ systemd_service_overrides }}"  
   when: item not in systemd_remove_service_overrides
   register: override_file
 
