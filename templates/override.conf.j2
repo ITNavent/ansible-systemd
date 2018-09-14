@@ -1,10 +1,4 @@
-#{{ ansible_managed_custom | default( ansible_managed ) }}
-{% for i in item %}
-{% if i is string  %}
-{{ i }}
-{% elif i is mapping %}
-{% for k,v in i.iteritems() %}
-{{ k }}={{ v }}
-{% endfor %}
-{% endif %}
+[{{ item.config_section }}]
+{% for name, value in item.config_items.items() %}
+{{ name }}={{ value }}
 {% endfor %}
